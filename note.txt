@@ -1,0 +1,39 @@
+1. Sign Up
+Potansiyel bir kurumsal müşteri olarak, kuruluş profilimi oluşturmak için kaydolmak istiyorum
+Personelimi platformda organize edebilmem için
+
+Kabul şartları:
+  1. Uygulamaya erişimi olan herkese açın
+  2. Kullanıcı adını, e-posta adresini ve şifreyi girin
+  3. Kullanıcı, e-postada bir aktivasyon bağlantısı alacaktır. Bağlantı tıklandığında, hesap aktif olmalıdır
+
+Not: Bu detaylar sistemde hesap açmak için yeterlidir. Hesabınızı onaylamak için ek bir işlem yoktur.
+
+
+
+
+2. Sign In
+Kullanıcı olarak sisteme giriş yapmak istiyorum
+Müşteri profili bilgilerime ulaşabilmem için
+
+Kabul şartları:
+  1. Yalnızca 6 veya daha fazla alfasayısal karakter içeren parolalara izin verin
+
+
+
+
+3. List Stocks
+Kullanıcı olarak son fiyattan alabileceğim tüm hisseleri görmem gerekiyor.
+
+Kabul şartları:
+  1. Kullanıcı kuruluşta oturum açar
+  2. Kullanıcı mevcut hisse senedi sembollerini mevcut fiyatla listeler
+
+Not: Gerçek zamanlı hisse senedi fiyatları gönderen herhangi bir borsa API'sini 
+seçmekte veya zamana dayalı hisse senedi dalgalanmaları yaratan sahte bir hizmet 
+oluşturmakta özgürsünüz. 
+
+
+
+
+4. 
