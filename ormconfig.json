@@ -1,0 +1,18 @@
+{
+  "type": "postgres",
+  "host": "interview-task.cezq3ilbquq6.us-east-1.rds.amazonaws.com",
+  "port": 5432,
+  "username": "payday",
+  "password": "rootroot",
+  "database": "postgres",
+  "entities": [
+    "dist/**/*.entity{.ts,.js}"
+  ],
+  "migrations": [
+    "dist/migration/*{.ts,.js}"
+  ],
+  "synchronize": false,
+  "cli": {
+    "migrationsDir": "src/migration"
+  }
+}
