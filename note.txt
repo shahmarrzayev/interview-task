@@ -33,7 +33,45 @@ Not: Gerçek zamanlı hisse senedi fiyatları gönderen herhangi bir borsa API's
 seçmekte veya zamana dayalı hisse senedi dalgalanmaları yaratan sahte bir hizmet 
 oluşturmakta özgürsünüz. 
 
+Deponu gormek isteyir ki, mehsulun en sonuncu qiymetinde alim.
 
 
 
-4. 
+
+4. Deposit Cash
+Kullanıcı olarak hesabıma nakit para yüklemek istiyorum
+
+Kabul şartları:
+  1. Kullanıcı hesabına giriş yapar ve dilediği tutarı nakit bakiyesine yatırır.
+
+Not: Kullanıcı tarafından girişte sağlanan tutar kadar hesap nakit bakiyesini 
+artırmaya izin veren herhangi bir api oluşturmanız yeterlidir.
+
+
+
+
+5. Place an Order
+Bir kullanıcı olarak, harici borsada alım satım emirleri verebilmeliyim.
+
+Kabul şartları:
+  1. Kullanıcı, hedef fiyatla bir alış/satış emri oluşturur
+  2. Sistem, stok fiyatı sipariş fiyatına ulaşır ulaşmaz siparişi doldurur.
+
+Not: Örn. 200$ hedef fiyatla 100 TSLA hissesi satın alın. Fiyat 200$'a eşit veya 
+altında olduğunda sipariş doldurulmalıdır. Aynı şekilde, AAPL'yi 200$'a satarsanız, 
+sipariş TSLA fiyatı 200$'a eşit veya daha fazla olduğunda sipariş tamamlanacaktır. 
+Her işlemde hesap nakit bakiyesini güncellemelisiniz. Lütfen harici sistemin güvenilir 
+olmadığını dikkate alın.
+
+
+
+
+6. Email Notification
+Bir kullanıcı olarak bir sipariş dolduğunda bir e-posta almak istiyorum
+
+Kabul şartları:
+  1. Kullanıcı, borsada verdiği AL/SAT emirleri yerine geldiğinde bir e-posta almalıdır.
+
+
+
+
