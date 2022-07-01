@@ -23,15 +23,15 @@ export class UserEntity {
   @Column({ name: 'cash_balance', default: 0 })
   cashBalance: number;
 
-  @Column({ name: 'activate_hash' })
-  activate_url: string;
+  @Column({ name: 'activate_key' })
+  activateKey: string;
 
-  @Column({ name: 'is_active', default: true })
+  @Column({ name: 'is_active', default: false })
   isActive: boolean;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }

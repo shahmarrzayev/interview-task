@@ -10,7 +10,6 @@ import { getConfig } from 'src/common/util';
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { AuthHelper } from './auth.helper';
-import { SignInDto } from './dto/signIn.dto';
 
 @Injectable()
 export class AuthService {
@@ -22,18 +21,18 @@ export class AuthService {
 
   private readonly log = new Logger(AuthService.name);
 
-  async signIn(user: UserEntity): Promise<{ access_token: string }> {
-    this.log.debug('signIn -- start');
+  async login(user: UserEntity): Promise<{ access_token: string }> {
+    this.log.debug('login -- start');
     if (!user || !user.isActive) {
-      this.log.debug('signIn -- invalid argument(s)');
-      throw new InternalServerErrorException('invalid argument(s)');
+      this.log.debug('login -- user is not active');
+      throw new InternalServerErrorException('user is not active');
     }
 
     const payload = { id: user.id, email: user.email, isActive: user.isActive };
     const accessToken = this.jwtService.sign(payload, {
       secret: getConfig(EConfig.JWT_ACCESS_SECRET_KEY),
     });
-    this.log.debug('signIn -- success');
+    this.log.debug('login -- success');
     return { access_token: accessToken };
   }
 

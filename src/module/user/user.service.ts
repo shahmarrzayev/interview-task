@@ -1,4 +1,6 @@
 import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { hash } from 'argon2';
+import { MailService } from '../mail/mail.service';
 import { SaveUserDto } from './dto/saveUser.dto';
 import { UserEntity } from './user.entity';
 import { UserHelper } from './user.helper';
@@ -9,6 +11,7 @@ export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly userHelper: UserHelper,
+    private readonly mailService: MailService,
   ) {}
 
   private log = new Logger(UserService.name);
@@ -38,6 +41,8 @@ export class UserService {
     }
 
     const entity = SaveUserDto.toEntity(dto, encryptedPassword);
+    entity.activateKey = await this.generateActivateKey(entity.email);
+
     const user = await this.userRepository.save(entity);
     if (!user) {
       this.log.error('signUp -- could not save user');
@@ -97,6 +102,13 @@ export class UserService {
 
     this.log.debug('getByUsername -- success');
     return user;
+  }
+
+  private async generateActivateKey(email: string): Promise<string> {
+    if (!email) return null;
+    const key = await hash(email, { hashLength: 64 });
+    await this.mailService.sendActivationEmail(email, key);
+    return key;
   }
 
   private async emailExists(email: string): Promise<boolean> {

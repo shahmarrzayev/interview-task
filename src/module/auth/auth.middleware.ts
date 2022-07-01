@@ -10,7 +10,7 @@ import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(private readonly userService: UserService, private readonly authHelper: AuthHelper) {}
+  constructor(private readonly userService: UserService) {}
 
   private readonly logger = new Logger(AuthMiddleware.name);
 
