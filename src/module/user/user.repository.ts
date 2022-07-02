@@ -34,6 +34,16 @@ export class UserRepository extends GenericRepository {
     );
   }
 
+  async findByActivateKey(key: string): Promise<UserEntity> {
+    if (!key) return null;
+    return await this.runQuery(() =>
+      this.repository
+        .createQueryBuilder('user')
+        .where('user.activate_key = :key', { key })
+        .getOne(),
+    );
+  }
+
   async save(user: UserEntity): Promise<UserEntity> {
     if (!user) return null;
     return await this.runQuery(() => this.repository.save(user));

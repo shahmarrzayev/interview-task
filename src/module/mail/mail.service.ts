@@ -7,22 +7,21 @@ export class MailService {
 
   private readonly log = new Logger(MailService.name);
 
-  async sendActivationEmail(email: string, key: string): Promise<any> {
+  async sendActivateKey(email: string, key: string): Promise<any> {
     if (!email || !key) return null;
     this.log.debug('sendActivationEmail -- start');
-    console.log();
+
     try {
       await this.mailerService.sendMail({
         to: email,
         subject: 'Your account activation code',
         template: process.cwd() + '/src/templates/user-activation.hbs',
         context: {
-          url: `https://exmo-app.herokuapp.com/api/activate/${key}`,
+          url: `https://exmo-app.herokuapp.com/api/user/activate/${key}`,
         },
       });
     } catch (error) {
       this.log.warn(`sendActivationEmail -- error sending activation email: ${error}`);
-      console.log('error', error);
       throw new InternalServerErrorException();
     }
 

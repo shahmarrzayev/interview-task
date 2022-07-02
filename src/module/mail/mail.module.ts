@@ -20,7 +20,7 @@ import { MailService } from './mail.service';
         secure: true,
       },
       defaults: {
-        from: 'NestJS Template <noreply@example.com>',
+        from: `Activation Code <${getConfig(EConfig.EMAIL_USER)}>`,
       },
       template: {
         dir: __dirname + '/templates',

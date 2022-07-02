@@ -5,7 +5,6 @@ import { Response, NextFunction } from 'express';
 import { getConfig } from '../../common/util';
 import { EConfig } from '../../common/config.enum';
 import { UserEntity } from '../user/user.entity';
-import { AuthHelper } from './auth.helper';
 import { UserService } from '../user/user.service';
 
 @Injectable()

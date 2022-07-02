@@ -9,7 +9,7 @@ export class CreateUsersTable1656604119967 implements MigrationInterface {
             email VARCHAR(512) UNIQUE NOT NULL,
             password VARCHAR(512) NOT NULL,
             cash_balance INT NOT NULL DEFAULT 0,
-            activate_url VARCHAR(512),
+            activate_key VARCHAR(512),
             is_active BOOLEAN DEFAULT FALSE,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

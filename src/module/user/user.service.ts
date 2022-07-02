@@ -1,3 +1,4 @@
+import { IncreaseBalanceDto } from './dto/increaseBalance.dto';
 import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { hash } from 'argon2';
 import { MailService } from '../mail/mail.service';
@@ -16,27 +17,53 @@ export class UserService {
 
   private log = new Logger(UserService.name);
 
-  async signUp(dto: SaveUserDto): Promise<UserEntity> {
-    this.log.debug('signUp -- start');
+  async activate(key: string): Promise<any> {
+    this.log.debug('activate -- start');
+    if (!key) {
+      this.log.debug('activate -- invalid argument(s)');
+      throw new InternalServerErrorException('invalid argument(s)');
+    }
+
+    const user = await this.userRepository.findByActivateKey(key);
+    if (!user) {
+      this.log.debug('activate -- user not found');
+      throw new InternalServerErrorException('user not found');
+    }
+
+    user.activateKey = null;
+    user.isActive = true;
+
+    const updatedUser = await this.userRepository.save(user);
+    if (!updatedUser) {
+      this.log.debug('activate -- user not updated');
+      throw new InternalServerErrorException('user not updated');
+    }
+
+    this.log.debug('activate -- success');
+    return { success: true };
+  }
+
+  async create(dto: SaveUserDto): Promise<UserEntity> {
+    this.log.debug('create -- start');
     const { email, username, password } = dto || {};
     if (!email || !username || !password) {
-      this.log.debug('signUp -- invalid argument(s)');
+      this.log.debug('create -- invalid argument(s)');
       throw new InternalServerErrorException('invalid argument(s)');
     }
 
     if (await this.emailExists(email)) {
-      this.log.debug('signUp -- email already exists');
+      this.log.debug('create -- email already exists');
       throw new InternalServerErrorException('email already exists');
     }
 
     if (await this.usernameExists(username)) {
-      this.log.debug('signUp -- username already exists');
+      this.log.debug('create -- username already exists');
       throw new InternalServerErrorException('username already exists');
     }
 
     const encryptedPassword = await this.userHelper.hashPassword(password);
     if (!encryptedPassword) {
-      this.log.error('signUp -- could not encrypt password');
+      this.log.error('create -- could not encrypt password');
       throw new InternalServerErrorException('could not encrypt password');
     }
 
@@ -45,12 +72,37 @@ export class UserService {
 
     const user = await this.userRepository.save(entity);
     if (!user) {
-      this.log.error('signUp -- could not save user');
+      this.log.error('create -- could not save user');
       throw new InternalServerErrorException('could not save user');
     }
 
-    this.log.debug('signUp -- success');
+    this.log.debug('create -- success');
     return user;
+  }
+
+  async increaseBalance(user: UserEntity, dto: IncreaseBalanceDto): Promise<UserEntity> {
+    this.log.debug('increaseBalance -- start');
+    if (!user || !dto) {
+      this.log.debug('increaseBalance -- invalid argument(s)');
+      throw new InternalServerErrorException('invalid argument(s)');
+    }
+
+    const entity = await this.userRepository.findById(user.id);
+    if (!entity) {
+      this.log.debug('increaseBalance -- user not found');
+      throw new InternalServerErrorException('user not found');
+    }
+
+    entity.cashBalance += dto.amount;
+
+    const updatedUser = await this.userRepository.save(entity);
+    if (!updatedUser) {
+      this.log.debug('increaseBalance -- user not updated');
+      throw new InternalServerErrorException('user not updated');
+    }
+
+    this.log.debug('increaseBalance -- success');
+    return updatedUser;
   }
 
   async getById(id: number): Promise<UserEntity> {
@@ -106,8 +158,9 @@ export class UserService {
 
   private async generateActivateKey(email: string): Promise<string> {
     if (!email) return null;
-    const key = await hash(email, { hashLength: 64 });
-    await this.mailService.sendActivationEmail(email, key);
+    let key = await hash(email, { hashLength: 64 });
+    key = key.replace(/\//g, '-');
+    await this.mailService.sendActivateKey(email, key);
     return key;
   }
 
