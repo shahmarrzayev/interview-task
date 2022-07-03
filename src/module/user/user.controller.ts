@@ -1,4 +1,4 @@
-import { IncreaseBalanceDto } from './dto/increaseBalance.dto';
+import { IncreaseBalanceDto } from '../wallet/dto/increaseBalance.dto';
 import { Body, Controller, Get, Param, Post, Put, Req } from '@nestjs/common';
 import { SaveUserDto } from './dto/saveUser.dto';
 import { UserDto } from './dto/user.dto';

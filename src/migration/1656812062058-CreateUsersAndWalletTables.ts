@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateUsersTable1656604119967 implements MigrationInterface {
+export class CreateUsersAndWalletTables1656812062058 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
         CREATE TABLE "users" (
@@ -11,6 +11,15 @@ export class CreateUsersTable1656604119967 implements MigrationInterface {
             cash_balance INT NOT NULL DEFAULT 0,
             activate_key VARCHAR(512),
             is_active BOOLEAN DEFAULT FALSE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+
+        CREATE TABLE "stocks" (
+            id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+            user_id INT REFERENCES users(id),
+            symbol VARCHAR(512) NOT NULL,
+            quantity INT NOT NULL DEFAULT 0,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
