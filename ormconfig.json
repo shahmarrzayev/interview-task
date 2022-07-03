@@ -1,9 +1,9 @@
 {
   "type": "postgres",
-  "host": "host,
+  "host": "exmo-db.cezq3ilbquq6.us-east-1.rds.amazonaws.com",
   "port": 5432,
-  "username": "username",
-  "password": "password",
+  "username": "exmo",
+  "password": "exmoexmo",
   "database": "postgres",
   "entities": [
     "dist/**/*.entity{.ts,.js}"
