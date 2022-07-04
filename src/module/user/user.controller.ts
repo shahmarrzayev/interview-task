@@ -1,9 +1,9 @@
-import { IncreaseBalanceDto } from '../wallet/dto/increaseBalance.dto';
 import { Body, Controller, Get, Param, Post, Put, Req } from '@nestjs/common';
 import { SaveUserDto } from './dto/saveUser.dto';
 import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 import { IRequest } from '../auth/interface/request.interface';
+import { IncreaseBalanceDto } from './dto/increase-balance.dto';
 
 @Controller('/api/user')
 export class UserController {

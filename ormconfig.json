@@ -1,10 +1,10 @@
 {
   "type": "postgres",
-  "host": "exmo-db.cezq3ilbquq6.us-east-1.rds.amazonaws.com",
+  "host": "abul.db.elephantsql.com",
   "port": 5432,
-  "username": "exmo",
-  "password": "exmoexmo",
-  "database": "postgres",
+  "username": "yxxeuomd",
+  "password": "Gms-hXsdhY8qaEUNP_xs9iaP2UWSgJ20",
+  "database": "yxxeuomd",
   "entities": [
     "dist/**/*.entity{.ts,.js}"
   ],

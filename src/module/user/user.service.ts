@@ -1,7 +1,7 @@
-import { IncreaseBalanceDto } from '../wallet/dto/increaseBalance.dto';
 import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { hash } from 'argon2';
 import { MailService } from '../mail/mail.service';
+import { IncreaseBalanceDto } from './dto/increase-balance.dto';
 import { SaveUserDto } from './dto/saveUser.dto';
 import { UserEntity } from './user.entity';
 import { UserHelper } from './user.helper';
